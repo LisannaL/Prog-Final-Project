@@ -1,0 +1,175 @@
+\documentclass[11pt,a4paper,BCOR12mm, headexclude, footexclude, twoside, openright]{scrartcl} 
+\usepackage[scaled]{helvet}
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{ifthen}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{sfmath}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{sectsty}
+\usepackage{url}
+%\KOMAoptions{optionenliste}
+%\KOMAoptions{Option}{Werteliste}
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{subfig} % Required for the inclusion of images
+
+
+\addtokomafont{caption}{\small}
+%\setkomafont{descriptionlabel}{\normalfont
+%	\bfseries}
+\setkomafont{captionlabel}{\normalfont
+	\bfseries}
+\let\oldtabular\tabular
+\renewcommand{\tabular}{\sffamily\oldtabular}
+\KOMAoptions{abstract=true}
+%\setkomafont{footnote}{\sffamily}
+%\KOMAoptions{twoside=true}
+%\KOMAoptions{headsepline=true}
+%\KOMAoptions{footsepline=true}
+\renewcommand\familydefault{\sfdefault}
+\renewcommand{\arraystretch}{1.1}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+\setlength{\textheight}{230mm}
+\allsectionsfont{\centering \normalfont\scshape}
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
+
+%\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+%\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+%\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt}
+
+
+\begin{document}
+%\sffamily
+\fancypagestyle{plain}
+{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}%
+  \fancyfoot[R]{\emph{\footnotesize Page \thepage\ of \pageref{LastPage}}}%
+  \fancyfoot[C]{\emph{\footnotesize Prof.\ F.\ Pérez-Bernal}}%
+%  \fancyfoot[C]{\emph{\footnotesize Prof.\ F.\ Pérez-Bernal}\\ \emph{\footnotesize09-927-500}}%
+}
+
+\thispagestyle{plain}
+
+\titlehead
+{
+	Universidad de Huelva\\%
+	Facultad de CC.\ Experimentales\hfill Computational Chemistry\\%
+	Grado en Química
+}
+\subject{\vspace{-1ex} \horrule{2pt}\\[0.15cm] {\textsc{\texttt{}}}}
+\title{Using Machine Learning Techniques in the Detection of Fake News} %\#1 \\[0.5cm]}
+\subtitle{\texttt{Spring Term Project}, Lisanna Lehes \\\horrule{2pt}\\[0.5cm]}
+\author{\textsc{Prof.\ Francisco Pérez-Bernal}\vspace{-2ex}}
+\date{\begin{tabular}{cc}
+  \textsc{Date:}& \textsc{\emph{\today}}\\
+  \textsc{Due :}& \textsc{\emph{30th June 2020}}\vspace{3ex}
+\end{tabular}}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+%--------------------------------------------
+
+
+\paragraph{project} This ambitious assignment implies the following tasks:
+\begin{quotation}\emph{Task:} You are provided with a dataset of news tagged as reliable or unreliable from the Kaggle website \cite{faken_kaggle}. The final, and ambitious, project goal is to devise a sound fake news detector using \emph{machine learning} techniques. The detailed project goals are:
+
+  \begin{itemize}
+  \item Create a project in \emph{GitLab} to accomodate the files of this project and share your work with the professor. 
+  \item Get acquanted with machine learning (ML) techniques making use fo the \texttt{scikit-learn} set of tools and apply these techniques to build a fake news detector training the system with an existing dataset.
+  \item A \LaTeX~file (\texttt{tex} and \texttt{pdf}) summarizing the work of the student in the project. It should include both the developed code and an outline of the results.
+  \item The slides for a 15 minutes seminar in which the student will present the subject and the main results obtained in the project to the rest of the class.
+\end{itemize}
+\end{quotation}
+
+\newpage
+
+%-------------------------------
+\fancypagestyle{plain}
+{%
+  \renewcommand{\headrulewidth}{0.5pt}%
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}%
+  \fancyhead[R]{\emph{\footnotesize \today}}
+  \fancyfoot[R]{\emph{\footnotesize Page \thepage\ of \pageref{LastPage}}}%
+  \fancyfoot[C]{\emph{\footnotesize Prof.\ F.\ Pérez-Bernal}}%
+%  \fancyfoot[C]{\emph{\footnotesize Peter Zweifel}\\ \emph{\footnotesize 09-927-500}}%
+}
+
+\thispagestyle{plain}
+
+\section*{Problem definition} %add a * after \section to get rid of the numbering
+
+
+\paragraph{Introduction}
+
+The recent possibility of accessing masive amounts of digital data and the increase of the computing power in processors has allowed for the application of statistical techniques and algorithms for the extraction of patterns. Techniques like neural networks were known long time ago, but the recent publication of papers where an efficient way of training such networks is presented \cite{Hinton2006} have provoked an unprecedent degree of attention on these techniques. One should distiguish between \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement} learning \cite{Hao2018}.  
+
+
+In the present project the student should get familiar with the \texttt{scikit-learn} library, an open source (BSD licensed)  collection of tools written in Python that supports supervised and unsupervised learning \cite{scikit-learn} with a modern API design \cite{scikit-api}. \texttt{Scikit-learn} provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities.
+
+The nature of the work implies to manage strings intesively and this could be achieved with the \texttt{TfidfVectorizer} tool, meant for computing the frequencies of terms or words in  documents.
+
+This tool will be applied to a Kaggle dataset which contains over 7000 news articles and each one of them has been classified either real or fake \cite{faken_kaggle} that would be used to train the fake news detector.
+
+%-------------------------------
+\fancypagestyle{plain}
+{%
+  \renewcommand{\headrulewidth}{0.5pt}%
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}%
+  \fancyhead[R]{\emph{\footnotesize \today}}
+  \fancyfoot[R]{\emph{\footnotesize Page \thepage\ of \pageref{LastPage}}}%
+  \fancyfoot[C]{\emph{\footnotesize Prof.\ F.\ Pérez-Bernal}}%
+%  \fancyfoot[C]{\emph{\footnotesize Peter Zweifel}\\ \emph{\footnotesize 09-927-500}}%
+}
+
+\thispagestyle{plain}
+
+
+
+\section*{Computation and Results}
+
+Create an account in \texttt{GitLab} and a project in this Git provider for the different files used in the present work.
+
+
+
+\paragraph{First part} Get acquainted with \texttt{scikit-learn} tools, in particular those related to the task at hand.
+
+\paragraph{Second part} Download the Kaggle dataset that will be used to test your fake news detector \cite{faken_kaggle}.
+
+\paragraph{Third part} Split the downloaded dataset into two subsets, \emph{e.g.} 70\% of the entries will be used to train the model and the rest to test the model's predictive power. A \emph{PassiveAggressive Classifier} may be used to fit the model.
+
+
+\paragraph{Fourth part} Try to calculate the model's accuracy and present a \emph{confusion matrix} to reckon the model's predictive power.
+
+
+
+\paragraph{Fifth part} Try the model with other news, not in the original Kaggle dataset. Depending on the state of the previous items, the implementation of a GUI could be considered.
+
+
+
+
+
+
+%%%%%%%%%%%%
+%\nocite{*}
+%%%%%%%%%%%%
+\bibliographystyle{unsrt}
+\bibliography{ml_fake_news.bib}
+
+
+\end{document}
